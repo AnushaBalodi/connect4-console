@@ -24,17 +24,21 @@ var callWithName=function(t,n,o){var i,a,e=typeof t,s=typeof n;o=o||{},"string"=
  */
 
 var mainObj = [],
-    currentPos = new Array(7).fill(0),
-    currentPlayer = 'X',
-    time = 200;
+    currentPos,
+    currentPlayer,
+    time = 200,
+    stackSize = 6;
 
 function init() {
     mainObj = [];
     for(var i =0; i<7; i++) {
-        mainObj.push(new Array(7).fill(' '));
+        mainObj.push(new Array(stackSize).fill(' '));
     }
-    plotPos();
+    currentPos = new Array(7).fill(0);
+    currentPlayer = 'X';
+    console.clear();
     printPlayer();
+    plotPos();
 }
 
 function display(str, style) {
@@ -46,7 +50,7 @@ function plotPos() {
     var style = [];
     var boardColor = "color:" + (currentPlayer === 'X' ? 'blue' : 'red');
     style.push(boardColor);
-    for(var i=6; i>=0; i--) {
+    for(var i=stackSize-1; i>=0; i--) {
         logit += '%c|';
         style.push(boardColor);
         for(var j=0; j<7; j++) {
@@ -76,7 +80,12 @@ function playAt(stack) {
         return;
     }
 
-    var currPos = currentPos[stack-1], position = 7;
+    if(currentPos[stack-1] === stackSize) {
+        display("Stack already full!! Kindly choose another stack.", "color:#a94442;font-size:13px;background:#f2dede;");
+        return;
+    }
+
+    var currPos = currentPos[stack-1], position = stackSize;
 
     function showThePlot() {
         console.clear();
