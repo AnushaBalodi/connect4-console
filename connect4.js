@@ -1,3 +1,28 @@
+/*
+ Libraries Start
+*/
+
+/*!
+ * CallWithName v1.0
+ *
+ * Copyright 2017, Himanshu Tanwar
+ * Released under the MIT license
+ * https://github.com/webXtended/callWithName
+ * Date: 2017-03-16
+ */
+var callWithName=function(t,n,o){var i,a,e=typeof t,s=typeof n;o=o||{},"string"===e&&"function"===s?(i=o.context||window,i[t]=n,i[t].toString=function(){var t=n.call(i);return t||o.returnValue||void 0}):(a=[],a.push("cannot assign"),a.push(e),a.push("to a"),a.push(s),console.error(a.join(" ")),console.info("Pass a string for name and a function to associate it with the name"),console.info("for more details visit https://github.com/webXtended/callWithName"))};
+/*
+ Libraries End
+*/
+
+
+/*!
+ * Copyright 2017, Anusha Balodi
+ * Released under the MIT license
+ * https://github.com/AnushaBalodi/connect4-console
+ * Date: 2017-03-17
+ */
+
 var mainObj = [],
     currentPos = new Array(7).fill(0),
     currentPlayer = 'X',
@@ -39,7 +64,7 @@ function plotPos() {
         logit+='\n' + '+---+---+---+---+---+---+---+\n';
 
     }
-    logit+='  1   2   3   4   5   6   7 ' + '\n';
+    logit+='  a   b   c   d   e   f   g ' + '\n';
     // display(logit);
     style.unshift(logit);
     console.log.apply(null,style);
@@ -79,6 +104,13 @@ function playAt(stack) {
 
 }
 
+['a','b','c','d','e','f','g'].forEach(function(item, index){
+    callWithName(item, function(){
+        playAt(index+1);
+    })
+});
+
+
 
 function togglePlayer() {
     currentPlayer = currentPlayer == 'X' ? 'O' : 'X';
@@ -93,3 +125,4 @@ function printPlayer() {
     }
 }
 init();
+
